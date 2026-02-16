@@ -44,17 +44,39 @@ void addProduct(Map<String, Product> inventory) {
   stdout.write("Enter product name: ");
   String? name = stdin.readLineSync()?.toLowerCase();
 
-  stdout.write("Enter price: ");
-  double? price = double.tryParse(stdin.readLineSync()!);
+  stdout.write("Enter product price: ");
+  double? price = double.tryParse(stdin.readLineSync() ?? '');
 
-  stdout.write("Enter Quantity: ");
-  int? quantity = int.tryParse(stdin.readLineSync()!);
-  print("Product added successfully.");
+  stdout.write("Enter product quantity: ");
+  int? quantity = int.tryParse(stdin.readLineSync() ?? '');
+
+  if (name == null || name.isEmpty || price == null || quantity == null) {
+    print("Invalid input. Please enter valid values.");
+    return;
+  }
+
+  if (price < 0 || quantity < 0) {
+    print("Price and quantity must be positive.");
+    return;
+  }
+
+  inventory[name] = Product(name, price, quantity);
+  print("Product added/updated successfully!");
 }
 
 void displayProducts(Map<String, Product> inventory) {
-  print("\n==== Inventory System ====");
-  
+  if (inventory.isEmpty) {
+    print("Inventory is empty.");
+    return;
+  }
+
+  print("\n--- Product List ---");
+  inventory.forEach((key, product) {
+    print("Name: ${product.name}");
+    print("Price: \₱${product.price}");
+    print("Quantity: ${product.quantity}");
+    print("--------------------");
+  });
 }
 
 void sellProducts(Map<String, Product> inventory) {

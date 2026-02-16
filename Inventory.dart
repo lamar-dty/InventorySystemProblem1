@@ -1,6 +1,15 @@
 import 'dart:io';
 
+class Product {
+  String name;
+  double price;
+  int quantity;
+
+  Product(this.name, this.price, this.quantity);
+}
+
 void main() {
+  Map<String, Product> inventory = {};
 
   while (true) {
     print("\n==== Inventory System ====");
@@ -14,13 +23,13 @@ void main() {
 
     switch (choice) {
       case '1':
-
+        addProduct(inventory);
         break;
       case '2':
-
+        displayProducts(inventory);
         break;
       case '3':
-
+        sellProducts(inventory);
         break;
       case '4':
         print("Exiting program. Goodbye!");
@@ -31,7 +40,7 @@ void main() {
   }
 }
 
-void addProduct() {
+void addProduct(Map<String, Product> inventory) {
   stdout.write("Enter product name: ");
   String? name = stdin.readLineSync()?.toLowerCase();
 
@@ -40,15 +49,14 @@ void addProduct() {
 
   stdout.write("Enter Quantity: ");
   int? quantity = int.tryParse(stdin.readLineSync()!);
-
   print("Product added successfully.");
 }
 
-void displayProducts() {
+void displayProducts(Map<String, Product> inventory) {
   print("\n==== Inventory System ====");
   
 }
 
-void sellProducts() {
+void sellProducts(Map<String, Product> inventory) {
 
 }

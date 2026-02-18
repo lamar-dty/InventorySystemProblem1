@@ -12,12 +12,12 @@ void main() {
   Map<String, Product> inventory = {};
 
   while (true) {
-    print("\n==== Inventory Menu ====");
+    print("\n==== Inventory System ====");
     print("1. Add Product");
     print("2. Display Products");
     print("3. Sell Product");
     print("4. Exit");
-    stdout.write("Choose an option (1-4): ");
+    stdout.write("Enter choice: ");
 
     String? choice = stdin.readLineSync();
 
@@ -29,7 +29,7 @@ void main() {
         displayProducts(inventory);
         break;
       case '3':
-        sellProduct(inventory);
+        sellProducts(inventory);
         break;
       case '4':
         print("Exiting program. Goodbye!");
@@ -73,36 +73,12 @@ void displayProducts(Map<String, Product> inventory) {
   print("\n--- Product List ---");
   inventory.forEach((key, product) {
     print("Name: ${product.name}");
-    print("Price: \$${product.price}");
+    print("Price: \₱${product.price}");
     print("Quantity: ${product.quantity}");
     print("--------------------");
   });
 }
 
-void sellProduct(Map<String, Product> inventory) {
-  stdout.write("Enter product name to sell: ");
-  String? name = stdin.readLineSync()?.toLowerCase();
+void sellProducts(Map<String, Product> inventory) {
 
-  if (name == null || !inventory.containsKey(name)) {
-    print("Product not found.");
-    return;
-  }
-
-  stdout.write("Enter quantity to sell: ");
-  int? quantity = int.tryParse(stdin.readLineSync() ?? '');
-
-  if (quantity == null || quantity <= 0) {
-    print("Invalid quantity.");
-    return;
-  }
-
-  Product product = inventory[name]!;
-
-  if (product.quantity >= quantity) {
-    product.quantity -= quantity;
-    double total = quantity * product.price;
-    print("Sold $quantity ${product.name}(s). Total: \$${total}");
-  } else {
-    print("Insufficient stock! Sale cannot be completed.");
-  }
 }
